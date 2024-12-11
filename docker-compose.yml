@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  recorder:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - ./docker_output:/app/container_output_directory
+    ports:
+      - "3000:3000"
+    deploy:
+      resources:
+        limits:
+          cpus: '6.00'
+          memory: 16096M
+        # reservations:
+        #   devices:
+        #   - driver: nvidia
+        #     capabilities: [gpu, video, utility, graphics, display, compute]
+      
