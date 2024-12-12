@@ -82,7 +82,7 @@ const navigateToVideo = async (url) => {
     await page.goto(url);
     // await page.goto(magicLink, { waitUntil: "networkidle0" });
     // await page.cookies();
-    await page.goto(stageLink);
+   // await page.goto(stageLink);
     page.on('console', msg => console.log('PAGE LOG:', msg.text()));
     const closeBrowser = async () => {
         console.log("Closing browser");

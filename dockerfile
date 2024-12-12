@@ -12,9 +12,7 @@ COPY --from=nginx-bin --chown=$USERNAME:$USERNAME /var/run/nginx /var/run/nginx
 COPY --from=nginx-bin --chown=$USERNAME:$USERNAME /tmp/nginx-client-body /tmp/nginx-client-body
 RUN nginx -t
 
-RUN apt update && apt install -y \
-  fonts-noto
-
+RUN apt update
 RUN apt-get install -y wget
 RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN apt-get install -y ./google-chrome-stable_current_amd64.deb
@@ -25,6 +23,7 @@ COPY package.json package-lock.json /home/app/
 COPY --chown=$USERNAME:$USERNAME . /home/app/
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PUPPETEER_SKIP_DOWNLOAD=true
 RUN npm install
 
 ENV DISPLAY :0
