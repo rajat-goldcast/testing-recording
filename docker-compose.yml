@@ -14,8 +14,8 @@ services:
         limits:
           cpus: '6.00'
           memory: 16096M
-        # reservations:
-        #   devices:
-        #   - driver: nvidia
-        #     capabilities: [gpu, video, utility, graphics, display, compute]
+        reservations:
+          devices:
+          - driver: nvidia
+            capabilities: [gpu, video, utility, graphics, display, compute]
       

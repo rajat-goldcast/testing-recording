@@ -101,15 +101,15 @@ const startRecording = async () => {
             }
         })
     }
-    let VIDEO_DURATION = process.env.VIDEO_DURATION? parseInt(process.env.VIDEO_DURATION) * 1000: 300000;
+    let VIDEO_DURATION = process.env.VIDEO_DURATION? parseInt(process.env.VIDEO_DURATION) * 1000: 30000;
     console.log("working with video duration: ", VIDEO_DURATION);
 
     let closeCallback = await navigateToVideo(videoLink);
-    // let closeRecorder = await runRecorder();
+    let closeRecorder = await runRecorder();
     let closeAudioRecorder = await runAudioRecorder();
     setTimeout(async () => {
         await closeCallback();
-        // await closeRecorder();
+        await closeRecorder();
         await closeAudioRecorder();
 
     }, VIDEO_DURATION );
