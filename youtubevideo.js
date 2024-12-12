@@ -79,9 +79,9 @@ const navigateToVideo = async (url) => {
     );
     const page = await browser.newPage();
     page.setDefaultNavigationTimeout(0);
-    // await page.goto(url);
-    await page.goto(magicLink, { waitUntil: "networkidle0" });
-    await page.cookies();
+    await page.goto(url);
+    // await page.goto(magicLink, { waitUntil: "networkidle0" });
+    // await page.cookies();
     await page.goto(stageLink);
     page.on('console', msg => console.log('PAGE LOG:', msg.text()));
     const closeBrowser = async () => {
@@ -101,7 +101,7 @@ const startRecording = async () => {
             }
         })
     }
-    let VIDEO_DURATION = process.env.VIDEO_DURATION? parseInt(process.env.VIDEO_DURATION) * 1000: 900000;
+    let VIDEO_DURATION = process.env.VIDEO_DURATION? parseInt(process.env.VIDEO_DURATION) * 1000: 300000;
     console.log("working with video duration: ", VIDEO_DURATION);
 
     let closeCallback = await navigateToVideo(videoLink);
