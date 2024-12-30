@@ -7,4 +7,4 @@ ffmpeg -hide_banner \
 -ab "128k" \
 -af "aresample=async=1:min_hard_comp=0.1:first_pts=0" \
 \
-output.aac
+output.aac 2>&1 | tee -a ffmpeg.log

@@ -17,6 +17,11 @@ app.get('/log', (req, res) => {
   res.sendFile(__dirname + '/ffmpeg.log');
 });
 
+app.get('/audio_log', (req, res) => {
+  // read the audio.aac file and send it as response
+  res.sendFile(__dirname + '/ffmpeg_audio.log');
+});
+
 app.get('/video', (req, res) => {
   // read the audio.aac file and send it as response
   res.sendFile(__dirname + '/output.mp4');

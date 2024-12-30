@@ -3,7 +3,7 @@ const { spawn } = require('child_process');
 const fs = require('fs');
 require('dotenv').config();
 
-videoLink = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
+videoLink = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4"
 
 magicLink = "https://events.dev.goldcast.io/auth/link/spoorthi@goldcast.io/sJ7NC4UbrmI?eventID=b7a67d9c-b0be-4b03-ad48-9448211ffbdd&shortId=186755"
 stageLink = "https://events.dev.goldcast.io/e/b7a67d9c-b0be-4b03-ad48-9448211ffbdd/stage/broadcast/aac6f1a3-f786-4d56-999c-aab594055764?record_mode=true"
@@ -80,9 +80,9 @@ const navigateToVideo = async (url) => {
     const page = await browser.newPage();
     page.setDefaultNavigationTimeout(0);
     await page.goto(url);
-    // await page.goto(magicLink, { waitUntil: "networkidle0" });
-    // await page.cookies();
-   // await page.goto(stageLink);
+//     await page.goto(magicLink, { waitUntil: "networkidle0" });
+//     await page.cookies();
+//    await page.goto(stageLink);
     page.on('console', msg => console.log('PAGE LOG:', msg.text()));
     const closeBrowser = async () => {
         console.log("Closing browser");
@@ -101,16 +101,22 @@ const startRecording = async () => {
             }
         })
     }
-    let VIDEO_DURATION = process.env.VIDEO_DURATION? parseInt(process.env.VIDEO_DURATION) * 1000: 30000;
+    let VIDEO_DURATION = process.env.VIDEO_DURATION? parseInt(process.env.VIDEO_DURATION) * 1000: 20000;
     console.log("working with video duration: ", VIDEO_DURATION);
+    let tempVideoDuration = VIDEO_DURATION;
 
     let closeCallback = await navigateToVideo(videoLink);
-    let closeRecorder = await runRecorder();
+    // let closeRecorder = await runRecorder();
     let closeAudioRecorder = await runAudioRecorder();
     setTimeout(async () => {
-        await closeCallback();
-        await closeRecorder();
+        //  log that time is up 
+        console.log("temp time passed while closing recorder: ", tempVideoDuration);
         await closeAudioRecorder();
+        // await closeRecorder();
+        console.log("temp time passed after closing recorder: ", tempVideoDuration);
+        
+        await closeCallback();
+        console.log("temp time passed after closing browser: ", tempVideoDuration);
 
     }, VIDEO_DURATION );
 }
